@@ -84,6 +84,10 @@ async def sse_client(
 
                                     case "message":
                                         try:
+                                            if (not sse.data or sse.data.strip() == ""):
+                                                # Skipping empty message
+                                                continue
+
                                             message = types.JSONRPCMessage.model_validate_json(  # noqa: E501
                                                 sse.data
                                             )
